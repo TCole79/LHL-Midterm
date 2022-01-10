@@ -6,7 +6,7 @@ const pool = new Pool({
   user: 'labber',
   password: 'labber',
   host: 'localhost',
-  database: 'mt_database'
+  database: 'database'
 });
 
 /// Users
@@ -113,12 +113,12 @@ const getAllListings = function(options, limit = 10) {
     }
   }
 
-  if (options.minimum_price_per_night && options.maximum_price_per_night) {
-    queryParams.push (options.minimum_price_per_night * 100, options.maximum_price_per_night *100);
+  if (options.minimum_cost && options.maximum_cost) {
+    queryParams.push (options.minimum_cost * 100, options.maximum_cost * 100);
     if (queryParams.length === 2) {
-      queryString += `WHERE cost_per_night >= $${queryParams.length - 1} AND cost_per_night <= $${queryParams.length} `;
+      queryString += `WHERE cost >= $${queryParams.length - 1} AND cost <= $${queryParams.length} `;
     } else {
-      queryString += `AND cost_per_night >= $${queryParams.length - 1} AND cost_per_night <= $${queryParams.length} `;
+      queryString += `AND cost >= $${queryParams.length - 1} AND cost <= $${queryParams.length} `;
     }
   }
 
@@ -131,7 +131,7 @@ const getAllListings = function(options, limit = 10) {
   //4
   queryParams.push(limit);
   queryString += `
-  ORDER BY cost_per_night
+  ORDER BY cost
   LIMIT $${queryParams.length};
   `;
   //5
@@ -156,10 +156,10 @@ const addListing = function(listings) {
     description,
     thumbnail_photo_url,
     cover_photo_url,
-    cost,
+    cost
     )
 
-    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;`,params)
 
     .then((res) => {
