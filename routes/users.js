@@ -5,22 +5,20 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 
 const userRoutes = function (db) {
   router.get("/:id", (req, res) => {
     db.query("SELECT * FROM users WHERE id=$1", [req.params.id])
-      .then(data => {
+      .then((data) => {
         console.log("user check: ", data.rows);
         const user = data.rows[0];
         res.json(user);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error message: ", err.message);
-        res
-          .status(500)
-          .json({ error: err.message });
+        res.status(500).json({ error: err.message });
       });
   });
 <<<<<<< HEAD
@@ -34,14 +32,12 @@ module.exports = function(router, database)
 
   router.get("/", (req, res) => {
     db.query("SELECT * FROM users")
-      .then(data => {
+      .then((data) => {
         const users = data.rows;
         res.json({ users });
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
       });
   });
 
@@ -57,3 +53,10 @@ module.exports = function(router, database)
 };
 
 module.exports = userRoutes;
+
+////---- USER LOGOUT START ----//// from tinyapp
+router.post("/logout", (req, res) => {
+  req.session = null;
+  res.redirect("/listings");
+});
+////---- USER LOGOUT END ----////
