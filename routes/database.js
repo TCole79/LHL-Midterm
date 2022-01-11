@@ -114,7 +114,7 @@ const getAllListings = function(options, limit = 10) {
   }
 
   if (options.minimum_cost && options.maximum_cost) {
-    queryParams.push (options.minimum_cost * 100, options.maximum_cost * 100);
+    queryParams.push(options.minimum_cost * 100, options.maximum_cost * 100);
     if (queryParams.length === 2) {
       queryString += `WHERE cost >= $${queryParams.length - 1} AND cost <= $${queryParams.length} `;
     } else {
