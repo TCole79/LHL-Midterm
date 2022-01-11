@@ -8,9 +8,24 @@
 const express = require('express');
 const router  = express.Router();
 
-module.exports = (db) => {
+const userRoutes = function (db) {
+  router.get("/:id", (req, res) => {
+    db.query("SELECT * FROM users WHERE id=$1", [req.params.id])
+      .then(data => {
+        console.log("user check: ", data.rows);
+        const user = data.rows[0];
+        res.json(user);
+      })
+      .catch(err => {
+        console.log("Error message: ", err.message);
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+    db.query("SELECT * FROM users")
       .then(data => {
         const users = data.rows;
         res.json({ users });
@@ -21,90 +36,16 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  return router;
-};
-const bcrypt = require('bcrypt');
 
-module.exports = function(router, database) {
+  /* MORE
 
-  //**************************************/ Create a new user ************************
+    SPACE
 
-  router.post('/', (req, res) => {
-    const user = req.body;
-    user.password = bcrypt.hashSync(user.password, 12);
-    database.addUser(user)
-      .then(user => {
-        if (!user) {
-          res.send({error: "error"});
-          return;
-        }
-        req.session.userId = user.id;
-        res.send("🤗");
-        res.redirect('/');
-      })
-      .catch(e => res.send(e));
-  });
+    HERE
 
-  /**
-   ******************* Check if a user exists with a given email and password ****************
-   *
-   * @param {String} email
-   * @param {String} password encrypted
-   */
-  const login =  function(email, password) {
-    return database.getUserWithEmail(email)
-      .then(user => {
-        console.log(user);
-        if (bcrypt.compareSync(password, user.password)) {
-          console.log('bcrypt');
-          return user;
-        }
-        return null;
-      });
-  };
-  exports.login = login;
-
-  router.post('/login', (req, res) => {
-    const {email, password} = req.body;
-    login(email, password)
-      .then(user => {
-        if (!user) {
-          res.send({error: "error"});
-          return;
-        }
-        req.session.userId = user.id;
-        res.send({user: {name: user.name, email: user.email, id: user.id}});
-        res.redirect('/');
-      })
-      .catch(e => res.send(e));
-  });
-
-  router.post('/logout', (req, res) => {
-    req.session.userId = null;
-    res.send({});
-  });
-
-  router.get("/me", (req, res) => {
-    const userId = req.session.userId;
-    if (!userId) {
-      res.send({message: "not logged in"});
-      return;
-    }
-
-    database.getUserWithId(userId)
-      .then(user => {
-        if (!user) {
-          res.send({error: "no user with that id"});
-          return;
-        }
-
-        res.send({user: {name: user.name, email: user.email, id: userId}});
-      })
-      .catch(e => res.send(e));
-  });
+  */
 
   return router;
 };
 
-
-
+module.exports = userRoutes;
