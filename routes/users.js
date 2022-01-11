@@ -7,8 +7,10 @@
 
 const express = require("express");
 const router = express.Router();
+// const bcrypt = require('bcrypt');
+module.exports = function(db) {
 
-const userRoutes = function (db) {
+// const userRoutes = function (db) {
   router.get("/:id", (req, res) => {
     db.query("SELECT * FROM users WHERE id=$1", [req.params.id])
       .then((data) => {
@@ -21,15 +23,6 @@ const userRoutes = function (db) {
         res.status(500).json({ error: err.message });
       });
   });
-<<<<<<< HEAD
-  return router;
-};
-const bcrypt = require('bcrypt');
-
-module.exports = function(router, database) 
-=======
->>>>>>> 70d358bd6052b967a663cc5c4ac89140a931ccdb
-
   router.get("/", (req, res) => {
     db.query("SELECT * FROM users")
       .then((data) => {
@@ -40,6 +33,18 @@ module.exports = function(router, database)
         res.status(500).json({ error: err.message });
       });
   });
+  router.post("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/listings");
+  });
+  return router;
+
+};
+
+
+//module.exports = function(router, database)
+
+//
 
   /* MORE
 
@@ -49,14 +54,11 @@ module.exports = function(router, database)
 
   */
 
-  return router;
-};
+//   return router;
+// };
 
-module.exports = userRoutes;
+// module.exports = userRoutes;
 
-////---- USER LOGOUT START ----////
-router.post("/logout", (req, res) => {
-  req.session = null;
-  res.redirect("/listings");
-});
-////---- USER LOGOUT END ----////
+// ////---- USER LOGOUT START ----////
+//
+// ////---- USER LOGOUT END ----////
