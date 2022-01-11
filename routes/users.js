@@ -46,7 +46,7 @@ const userRoutes = function (db) {
 
 module.exports = userRoutes;
 
-////---- USER LOGOUT START ----//// from tinyapp
+////---- USER LOGOUT START ----////
 router.post("/logout", (req, res) => {
   req.session = null;
   res.redirect("/listings");
