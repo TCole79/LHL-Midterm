@@ -1,10 +1,84 @@
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #a3d0db;
-  background: linear-gradient(227deg, #a3d0db 0%, #a3b0db 20%, #a3addb 34%, #a3dbd0 59%, #a3d0db 74%, #a3d0db 100%);
+  background: #000000;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // min-height: 100vh;
 }
 
+.flame {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
 
+.text1 {
+  color: white;
+  position: absolute;
+  z-index: 100;
+  top: 2em;
+  left: 1em;
+  font-size: xxx-large;
+}
+
+.text2 {
+  color: #f6963d;
+  position: absolute;
+  z-index: 100;
+  top: 6em;
+  left: 9em;
+  font-size: xxx-large;
+}
+
+.text3 {
+  color: #f6963d;
+  position: absolute;
+  z-index: 100;
+  top: 85em;
+  left: 1em;
+}
+
+.text4 {
+  color: rgb(255, 255, 255);
+  position: absolute;
+  z-index: 100;
+  top: 14em;
+  left: 7em;
+  font-size: xxx-large;
+}
+
+.text5 {
+  color: rgb(23, 63, 23);
+  position: absolute;
+  z-index: 100;
+  top: 788px;
+  left: 9em;
+  font-size: xxx-large;
+}
+
+.pointer {
+  color: #f6963d;
+  position: absolute;
+  z-index: 100;
+  top: 467px;
+  left: 700px;
+  font-size: 70px;
+}
+
+.pointer2 {
+  color: rgb(23, 63, 23);
+  position: absolute;
+  z-index: 100;
+  top: 962px;
+  left: 770px;
+  font-size: 70px;
+}
+
+.flamecontainer {
+  position: relative;
+  width: 1000px;
+  height: 1000px;
+}

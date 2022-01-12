@@ -1,12 +1,10 @@
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 
-
-module.exports = function(db) {
+module.exports = function (db) {
   router.get("/listings", (req, res) => {
-    db
-      .getAllListings(req.query, 20)
-      .then((listings) => res.send({ listings }))
+    db.getAllListings(req.query, 20)
+      .then((listings) => res.render("listings"))
       .catch((err) => {
         console.log("Error message: ", err.message);
         res.send(err);
@@ -15,8 +13,7 @@ module.exports = function(db) {
 
   router.post("/listings", (req, res) => {
     const userId = req.session.userId;
-    db
-      .addListing({ ...req.body, user_id: userId })
+    db.addListing({ ...req.body, user_id: userId })
       .then((listings) => {
         res.send(listings);
       })
@@ -60,9 +57,7 @@ router.get("/listings/new", (req, res) => {
   res.render("listings_new", templateVars);
 });
 
-
 ////---- ADDING NEW LISTING END----////
-
 
 ////---- EDITING LSITINGS START ----////
 // router.get("/listings/edit", (req, res) => {
@@ -70,9 +65,10 @@ router.get("/listings/new", (req, res) => {
 //   res.redirect(longURL);
 // });
 
+//fix request (change it to a put request)
 router.get("/listings/edit", (req, res) => {
   const userID = req.session["user_id"];
-  const editedListing  = midterm[req.params.listing];
+  const editedListing = midterm[req.params.listing];
 
   if (!userID || userID !== midterm.userID) {
     res
@@ -107,7 +103,6 @@ router.post("/listings/id:edit", (req, res) => {
   res.redirect("/listings");
 });
 ////---- EDITING LISTINGS END----////
-
 
 ////---- DELETE LISTINGS START ----////
 router.post("/listings/delete", (req, res) => {
