@@ -40,12 +40,40 @@ body {
   top: 85em;
   left: 1em;
 }
+
+.text4 {
+  color: rgb(255, 255, 255);
+  position: absolute;
+  z-index: 100;
+  top: 14em;
+  left: 7em;
+  font-size: xxx-large;
+}
+
+.text5 {
+  color: rgb(23, 63, 23);
+  position: absolute;
+  z-index: 100;
+  top: 788px;
+  left: 9em;
+  font-size: xxx-large;
+}
+
 .pointer {
   color: #f6963d;
   position: absolute;
   z-index: 100;
   top: 467px;
   left: 700px;
+  font-size: 70px;
+}
+
+.pointer2 {
+  color: rgb(23, 63, 23);
+  position: absolute;
+  z-index: 100;
+  top: 962px;
+  left: 770px;
   font-size: 70px;
 }
 
