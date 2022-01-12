@@ -17,7 +17,7 @@ const pool = new Pool({
  * @return {Promise<{}>} A promise to the user.
  */
 
-const getUserWithEmail = function (email) {
+const getUserWithEmail = function(email) {
   return pool
     .query(
       `SELECT *
@@ -40,7 +40,7 @@ exports.getUserWithEmail = getUserWithEmail;
  * @param {string} id The id of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-const getUserWithId = function (id) {
+const getUserWithId = function(id) {
   return pool
     .query(
       `SELECT *
@@ -65,7 +65,7 @@ exports.getUserWithId = getUserWithId;
  * @return {Promise<{}>} A promise to the user.
  */
 
-const addUser = function (user) {
+const addUser = function(user) {
   const query = {
     text: "INSERT INTO users(name, email, password, phone_number) VALUES($1, $2, $3, $4)",
     values: [user.name, user.email, user.password, user.phone_number],
@@ -87,7 +87,7 @@ exports.addUser = addUser;
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 
-const getAllListings = function (options, limit = 10) {
+const getAllListings = function(options, limit = 10) {
   // 1
   const queryParams = [];
   //2
@@ -143,7 +143,7 @@ exports.getAllListings = getAllListings;
  * @param {{}} listing An object containing all of the listing details.
  * @return {Promise<{}>} A promise to the listing.
  */
-const addListing = function (listings) {
+const addListing = function(listings) {
   const params = [
     listings.owner_id,
     listings.title,
