@@ -55,17 +55,30 @@ router.get("/", (req, res) => {
 // });
 
 ////---- ADDING NEW LISTING START ----////
-router.get("/listings/new", (req, res) => {
-  const userID = req.session["user_id"];
-  if (!userID) {
+router.get("/listings/:new", (req, res) => {
+  const adminID = req.session["user_admin"];
+  if (!adminID) {
     res.redirect("/login");
   }
 
   const templateVars = {
-    user: users[req.session["user_id"]],
+    user: users[req.session["user_admin"]],
     userID,
   };
   res.render("listings_new", templateVars);
+});
+
+router.post("/listings/:new")
+const adminID= req.session["user_admin"];
+if (!adminID) {
+  res.redirect("/login");
+}
+
+const templateVars = {
+  user: users[req.session["user_admin"]],
+  userID,
+};
+res.render("listings_new", templateVars);
 });
 ////---- ADDING NEW LISTING END----////
 
@@ -76,11 +89,11 @@ router.get("/listings/new", (req, res) => {
 //   res.redirect(longURL);
 // });
 
-router.get("/listings/:edit", (req, res) => {
-  const userID = req.session["user_id"];
+router.get("/listings/:id/edit", (req, res) => {
+  const adminID = req.session["user_admin"];
   const editedListing  = midterm[req.params.listing];
 
-  if (!userID || userID !== midterm.userID) {
+  if (!adminID || adminID !== user_admin) {
     res
       .status(401)
       .send(
@@ -90,17 +103,17 @@ router.get("/listings/:edit", (req, res) => {
   }
 
   const templateVars = {
-    user: users[req.session["user_id"]],
+    user: users[req.session["user_admin"]],
     listing: req.params.listing_id,
   };
-  res.render("urls_show", templateVars);
+  res.render("/listings", templateVars);
 });
 
-router.post("/listings/:edit", (req, res) => {
-  const userID = req.session["user_id"];
+router.post("/listings/id:edit", (req, res) => {
+  const adminID = req.session["user_admin"];
   const listing_id = midterm[req.params.listing_id];
 
-  if (!userID || userID !== midterm.userID) {
+  if (!adminID || adminID !== user_admin) {
     res
       .status(401)
       .send(
@@ -114,15 +127,45 @@ router.post("/listings/:edit", (req, res) => {
 });
 ////---- EDITING LISTINGS END----////
 
+////---- Favourite Listings start----///
+
+router.get("/listings/:favourite", (req, res) => {
+  const userID = req.session["user_id"];
+  if (!userID) {
+    res.redirect("/login");
+  }
+
+  const templateVars = {
+    user: users[req.session["user_id"]],
+    userID,
+  };
+  res.render("listings_favourite", templateVars);
+});
+
+router.post("/listings/:favourite") => {
+
+const userID = req.session["user_id"];
+if (!userID) {
+  res.redirect("/login");
+}
+
+const templateVars = {
+  user: users[req.session["user_id"]],
+  userID,
+};
+res.render("listings_favourite", templateVars);
+};
+///----- Favourite Listings end ----////
+
 
 
 ////---- DELETE LISTINGS START ----////
-router.post("/listings/:delete", (req, res) => {
-  const userID = req.session["user_id"];
+router.post("/listings/:id/delete", (req, res) => {
+  const adminID = req.session["user_admin"];
   const listing = midterm[req.params.listings_id];
   const idToDelete = req.params.listing_id;
 
-  if (!userID || userID !== users.userID) {
+  if (!adminID || adminID !== users_admin) {
     res
       .status(401)
       .send(
@@ -131,6 +174,6 @@ router.post("/listings/:delete", (req, res) => {
   } else {
     delete midterm[idToDelete];
   }
-  res.redirect("/");
+  res.redirect("/listings");
 });
 ////---- DELETE LISTINGS END ----////
