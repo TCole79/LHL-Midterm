@@ -1,14 +1,6 @@
 // All routes for Listings are defined here
 const express = require('express');
 const router  = express.Router();
-const db = require('../seeds/10_listings');
-
-router.set("view engine", "ejs");
-router.use(
-  cookieSession({
-    name: "session",
-    keys: ["cookie", "session"]
-  }));
 
 module.exports = function(router, db) {
   router.get("/listings", (req, res) => {
