@@ -1,18 +1,10 @@
-// All routes for Listings are defined here
 const express = require('express');
 const router  = express.Router();
-const db = require('../seeds/05_widgets')
 
-app.set("view engine", "ejs");
-app.use(
-  cookieSession({
-    name: "session",
-    keys: ["cookie", "session"]
-  }));
 
-module.exports = function (router, database) {
+module.exports = function(db) {
   router.get("/listings", (req, res) => {
-    database
+    db
       .getAllListings(req.query, 20)
       .then((listings) => res.send({ listings }))
       .catch((err) => {
@@ -23,7 +15,7 @@ module.exports = function (router, database) {
 
   router.post("/listings", (req, res) => {
     const userId = req.session.userId;
-    database
+    db
       .addListing({ ...req.body, user_id: userId })
       .then((listings) => {
         res.send(listings);
@@ -52,34 +44,23 @@ router.get("/", (req, res) => {
     res.redirect("/login");
   }
   res.redirect("/listings");
-// });
+});
 
 ////---- ADDING NEW LISTING START ----////
-router.get("/listings/:new", (req, res) => {
-  const adminID = req.session["user_admin"];
-  if (!adminID) {
+router.get("/listings/new", (req, res) => {
+  const userID = req.session["user_id"];
+  if (!userID) {
     res.redirect("/login");
   }
 
   const templateVars = {
-    user: users[req.session["user_admin"]],
+    user: users[req.session["user_id"]],
     userID,
   };
   res.render("listings_new", templateVars);
 });
 
-router.post("/listings/:new")
-const adminID= req.session["user_admin"];
-if (!adminID) {
-  res.redirect("/login");
-}
 
-const templateVars = {
-  user: users[req.session["user_admin"]],
-  userID,
-};
-res.render("listings_new", templateVars);
-});
 ////---- ADDING NEW LISTING END----////
 
 
@@ -89,11 +70,11 @@ res.render("listings_new", templateVars);
 //   res.redirect(longURL);
 // });
 
-router.get("/listings/:id/edit", (req, res) => {
-  const adminID = req.session["user_admin"];
+router.get("/listings/edit", (req, res) => {
+  const userID = req.session["user_id"];
   const editedListing  = midterm[req.params.listing];
 
-  if (!adminID || adminID !== user_admin) {
+  if (!userID || userID !== midterm.userID) {
     res
       .status(401)
       .send(
@@ -103,17 +84,17 @@ router.get("/listings/:id/edit", (req, res) => {
   }
 
   const templateVars = {
-    user: users[req.session["user_admin"]],
+    user: users[req.session["user_id"]],
     listing: req.params.listing_id,
   };
-  res.render("/listings", templateVars);
+  res.render("/urls_show", templateVars);
 });
 
 router.post("/listings/id:edit", (req, res) => {
-  const adminID = req.session["user_admin"];
+  const userID = req.session["user_id"];
   const listing_id = midterm[req.params.listing_id];
 
-  if (!adminID || adminID !== user_admin) {
+  if (!userID || userID !== user_id) {
     res
       .status(401)
       .send(
@@ -127,45 +108,14 @@ router.post("/listings/id:edit", (req, res) => {
 });
 ////---- EDITING LISTINGS END----////
 
-////---- Favourite Listings start----///
-
-router.get("/listings/:favourite", (req, res) => {
-  const userID = req.session["user_id"];
-  if (!userID) {
-    res.redirect("/login");
-  }
-
-  const templateVars = {
-    user: users[req.session["user_id"]],
-    userID,
-  };
-  res.render("listings_favourite", templateVars);
-});
-
-router.post("/listings/:favourite") => {
-
-const userID = req.session["user_id"];
-if (!userID) {
-  res.redirect("/login");
-}
-
-const templateVars = {
-  user: users[req.session["user_id"]],
-  userID,
-};
-res.render("listings_favourite", templateVars);
-};
-///----- Favourite Listings end ----////
-
-
 
 ////---- DELETE LISTINGS START ----////
-router.post("/listings/:id/delete", (req, res) => {
-  const adminID = req.session["user_admin"];
+router.post("/listings/delete", (req, res) => {
+  const userID = req.session["user_id"];
   const listing = midterm[req.params.listings_id];
   const idToDelete = req.params.listing_id;
 
-  if (!adminID || adminID !== users_admin) {
+  if (!userID || userID !== users_id) {
     res
       .status(401)
       .send(
@@ -174,6 +124,6 @@ router.post("/listings/:id/delete", (req, res) => {
   } else {
     delete midterm[idToDelete];
   }
-  res.redirect("/listings");
+  res.redirect("/");
 });
 ////---- DELETE LISTINGS END ----////
