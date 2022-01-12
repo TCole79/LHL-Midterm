@@ -41,13 +41,14 @@ module.exports = function (db) {
     db.query(
       `SELECT * FROM favourites
       JOIN listings ON listing_id = listings.id
-      WHERE favourites.user_id = $1`,
-      [req.session.user_id]
+      WHERE favourites.user_id = $1
+      AND favourites.id = $2`,
+      [req.session.user_id, req.params.id]
     )
 
       .then((data) => {
         const favourites = data.rows;
-        res.json(favourites, req.session.listing_id);
+        res.json({ favourites });
       })
 
       .catch((err) => {
@@ -59,11 +60,14 @@ module.exports = function (db) {
 
   /////----- ADD FAVOURITE-----/////
   router.post("/favorites", (req, res) => {
-    database
-      .query(
-        `INSERT INTO favourites (listing_id, user_id)
-        VALUES ($1, $2)`
-      )
+    const listing_id = req.body.listing_id;
+    const user_id = req.session.user_id;
+
+    db.query(
+      `INSERT INTO favourites (listing_id, user_id)
+        VALUES ($1, $2)
+        RETURNING *`, [listing_id, user_id] // research this further
+    )
 
       .then((data) => {
         res.redirect("/listings");
@@ -77,7 +81,7 @@ module.exports = function (db) {
   /////----- ADD END -----/////
 
   /////----- DELETE FAVOURITE -----/////
-  router.post("/favorites/:id/delete", (req, res) => {
+  router.post("/:id/delete", (req, res) => {
     db.query(
       `DELETE FROM favourites
       WHERE user_id = $1
@@ -95,7 +99,7 @@ module.exports = function (db) {
       });
 
     router.get("/favourites", (req, res) => {
-      res.redirect("/favourites");
+      res.redirect("/");
     });
   });
   /////----- DELETE END -----/////

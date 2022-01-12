@@ -23,6 +23,7 @@ module.exports = function(db) {
         res.status(500).json({ error: err.message });
       });
   });
+
   router.get("/", (req, res) => {
     db.query("SELECT * FROM users")
       .then((data) => {
@@ -33,10 +34,12 @@ module.exports = function(db) {
         res.status(500).json({ error: err.message });
       });
   });
+  
   router.post("/logout", (req, res) => {
     req.session = null;
     res.redirect("/listings");
   });
+
   return router;
 
 };

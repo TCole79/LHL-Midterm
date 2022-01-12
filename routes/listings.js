@@ -26,17 +26,11 @@ module.exports = function (db) {
   return router;
 };
 
-// PSEDUO code - what do we need:
-// get request for Browse/view all listings without being signed in
-// make a FAVOURITE = get / post
-// CREATE a listing = get / post
-// EDIT a listing = get / post
-// DELETE a listing = get / post
-// SEARCH for **FCUKING FLAMETHROWERS**
-
 ////---- ROUTES START ----////
 router.get("/", (req, res) => {
+  console.log("Check req.session ", req.session);
   const userID = req.session["user_id"];
+
   if (!userID) {
     res.redirect("/login");
   }
