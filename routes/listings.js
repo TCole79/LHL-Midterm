@@ -1,10 +1,14 @@
-// All routes for Listings are defined here
 const express = require('express');
 const router  = express.Router();
 
+<<<<<<< HEAD
 module.exports = function(router, db) {
+=======
+
+module.exports = function(db) {
+>>>>>>> messages
   router.get("/listings", (req, res) => {
-    database
+    db
       .getAllListings(req.query, 20)
       .then((listings) => res.send({ listings }))
       .catch((err) => {

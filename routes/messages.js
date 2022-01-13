@@ -15,6 +15,10 @@ module.exports = function(db) {
 
 /////----- BROWSE all messages -----/////
   router.get("/messages", (req, res) => {
+    const userID= req.session["user_id"];
+     if (!userID) {
+      res.redirect("/login");
+    }
     db.query("SELECT * FROM messages WHERE id=$1", [req.params.id])
     .then((data) => {
       console.log("message: ", data.rows);
@@ -33,6 +37,10 @@ module.exports = function(db) {
 
 /////----- READ specific message -----/////
   router.get("/messages/:id", (req, res) => {
+    const userID= req.session["user_id"];
+     if (!userID) {
+      res.redirect("/login");
+    }
     db.query("SELECT * FROM messages WHERE message_id REFERENCES message(id)=$1", [req.params.id])
     .then((data) => {
       console.log("message: ", data.rows);
@@ -49,7 +57,7 @@ module.exports = function(db) {
 
 
 
-/////----- ADD Message -----/////
+/////----- ADD Message START -----/////
   router.post("/messages", (req, res) => {
     const userID= req.session["user_id"];
      if (!userID) {
@@ -64,3 +72,6 @@ module.exports = function(db) {
 });
 
 /////----- ADD END -----/////
+
+
+/////----- ADD message END -----////
