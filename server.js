@@ -42,6 +42,13 @@ const listingsRoutes = require("./routes/listings");
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/listings", listingsRoutes(db));
+const widgetsRoutes = require("./routes/widgets");
+// const listingRoutes = require("./routes/listings");
+// Mount all resource routes
+// Note: Feel free to replace the example routes below with your own
+app.use("/api/users", usersRoutes(db));
+app.use("/api/widgets", widgetsRoutes(db));
+// app.use("api/listings", listingsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -50,6 +57,10 @@ app.use("/api/listings", listingsRoutes(db));
 
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+app.get("/listings", (req, res) => {
+  res.render("listings");
 });
 
 app.listen(PORT, () => {

@@ -1,20 +1,22 @@
 // All routes for Listings are defined here
-const express = require('express');
-const router  = express.Router();
-const db = require('../seeds/05_widgets')
+const express = require("express");
+const router = express.Router();
+const db = require("../seeds/05_widgets");
 
 app.set("view engine", "ejs");
 app.use(
   cookieSession({
     name: "session",
-    keys: ["cookie", "session"]
-  }));
+    keys: ["cookie", "session"],
+  })
+);
 
 module.exports = function (router, database) {
   router.get("/listings", (req, res) => {
+    console.log("in the listings route:");
     database
       .getAllListings(req.query, 20)
-      .then((listings) => res.send({ listings }))
+      .then((listings) => res.render("listings"))
       .catch((err) => {
         console.log("Error message: ", err.message);
         res.send(err);
@@ -52,10 +54,23 @@ router.get("/", (req, res) => {
     res.redirect("/login");
   }
   res.redirect("/listings");
-// });
+  // });
 
-////---- ADDING NEW LISTING START ----////
-router.get("/listings/:new", (req, res) => {
+  ////---- ADDING NEW LISTING START ----////
+  router.get("/listings/:new", (req, res) => {
+    const adminID = req.session["user_admin"];
+    if (!adminID) {
+      res.redirect("/login");
+    }
+
+    const templateVars = {
+      user: users[req.session["user_admin"]],
+      userID,
+    };
+    res.render("listings_new", templateVars);
+  });
+
+  router.post("/listings/:new");
   const adminID = req.session["user_admin"];
   if (!adminID) {
     res.redirect("/login");
@@ -67,21 +82,7 @@ router.get("/listings/:new", (req, res) => {
   };
   res.render("listings_new", templateVars);
 });
-
-router.post("/listings/:new")
-const adminID= req.session["user_admin"];
-if (!adminID) {
-  res.redirect("/login");
-}
-
-const templateVars = {
-  user: users[req.session["user_admin"]],
-  userID,
-};
-res.render("listings_new", templateVars);
-});
 ////---- ADDING NEW LISTING END----////
-
 
 ////---- EDITING LSITINGS START ----////
 // router.get("/listings/edit", (req, res) => {
@@ -91,7 +92,7 @@ res.render("listings_new", templateVars);
 
 router.get("/listings/:id/edit", (req, res) => {
   const adminID = req.session["user_admin"];
-  const editedListing  = midterm[req.params.listing];
+  const editedListing = midterm[req.params.listing];
 
   if (!adminID || adminID !== user_admin) {
     res
@@ -142,22 +143,20 @@ router.get("/listings/:favourite", (req, res) => {
   res.render("listings_favourite", templateVars);
 });
 
-router.post("/listings/:favourite") => {
+router.post("/listings/:favourite"),
+  (req, res) => {
+    const userID = req.session["user_id"];
+    if (!userID) {
+      res.redirect("/login");
+    }
 
-const userID = req.session["user_id"];
-if (!userID) {
-  res.redirect("/login");
-}
-
-const templateVars = {
-  user: users[req.session["user_id"]],
-  userID,
-};
-res.render("listings_favourite", templateVars);
-};
+    const templateVars = {
+      user: users[req.session["user_id"]],
+      userID,
+    };
+    res.render("listings_favourite", templateVars);
+  };
 ///----- Favourite Listings end ----////
-
-
 
 ////---- DELETE LISTINGS START ----////
 router.post("/listings/:id/delete", (req, res) => {
@@ -175,5 +174,83 @@ router.post("/listings/:id/delete", (req, res) => {
     delete midterm[idToDelete];
   }
   res.redirect("/listings");
+  // });
+
+  ////---- ADDING NEW LISTING START ----////
+  router.get("/listings/new", (req, res) => {
+    const userID = req.session["user_id"];
+    if (!userID) {
+      res.redirect("/login");
+    }
+
+    const templateVars = {
+      user: users[req.session["user_id"]],
+      userID,
+    };
+    res.render("listings_new", templateVars);
+  });
+  ////---- ADDING NEW LISTING END----////
+
+  ////---- EDITING LSITINGS START ----////
+  // router.get("/listings/edit", (req, res) => {
+  //   const longURL = urlDatabase[req.params.shortURL].longURL;
+  //   res.redirect(longURL);
+  // });
+
+  router.get("/listings/:edit", (req, res) => {
+    const userID = req.session["user_id"];
+    const editedListing = midterm[req.params.listing];
+
+    if (!userID || userID !== midterm.userID) {
+      res
+        .status(401)
+        .send(
+          `You must be logged in to edit your listings. Please try again. <a href="/login">Log Into Your Account </a>`
+        );
+      return;
+    }
+
+    const templateVars = {
+      user: users[req.session["user_id"]],
+      listing: req.params.listing_id,
+    };
+    res.render("urls_show", templateVars);
+  });
+
+  router.post("/listings/:edit", (req, res) => {
+    const userID = req.session["user_id"];
+    const listing_id = midterm[req.params.listing_id];
+
+    if (!userID || userID !== midterm.userID) {
+      res
+        .status(401)
+        .send(
+          `You must be logged in to edit your listings. Please try again. <a href="/login">Log Into Your Account </a>`
+        );
+      return;
+    }
+
+    midterm[req.params.listing_id] = req.body.EditField;
+    res.redirect("/listings");
+  });
+  ////---- EDITING LISTINGS END----////
+
+  ////---- DELETE LISTINGS START ----////
+  router.post("/listings/:delete", (req, res) => {
+    const userID = req.session["user_id"];
+    const listing = midterm[req.params.listings_id];
+    const idToDelete = req.params.listing_id;
+
+    if (!userID || userID !== users.userID) {
+      res
+        .status(401)
+        .send(
+          `You must be logged in to delete listings you own. <a href="/login">Kindly log in to your account. </a>`
+        );
+    } else {
+      delete midterm[idToDelete];
+    }
+    res.redirect("/");
+  });
 });
 ////---- DELETE LISTINGS END ----////
