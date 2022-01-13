@@ -57,7 +57,7 @@ module.exports = function(db) {
 
 
 
-/////----- ADD Message -----/////
+/////----- ADD Message START -----/////
   router.post("/messages", (req, res) => {
     const userID= req.session["user_id"];
      if (!userID) {
@@ -72,4 +72,4 @@ module.exports = function(db) {
 
 });
 
-/////----- ADD END -----/////
+/////----- ADD message END -----////
