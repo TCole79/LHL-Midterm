@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href= "/styles/messages.css" type="text/css" />
 
     <link rel="stylesheet" href="/styles/photos.css" type="text/css" />
 
@@ -28,16 +29,27 @@
 
   <body>
     <!-- Page-specific content here all needs to be changed -->
-    
-    <main>
-      <section>
 
-        <form method="GET" action="/messages/<%= message %>"><button type="submit">Edit</button></form>
-        <form method="GET" action="/messages/<%= message.id %>"><button type="submit">Edit</button></form>
-        <form method="POST" action="/messages/<%= message %>"><button type="submit">Message Seller</button></form>
-        <form method="POST" action="/messages/<%= message.id %>/delete"><button type="submit" class="btn btn-danger">Unfavourite</button></form>
 
+    <main class="container">
+      <h2 id= "h2t">The Fun Company - Messages</h2>
+      <section class="new-message">
+        <form method="POST" id="newmessageForm" action="/messages/">
+          <label for="message-text"></label>
+          <textarea name="text" id="message-text" placeholder="Is this item still available?"></textarea>
+          <div class="form-footer">
+            <button type="submit"> send message</button>
+          </div>
+        </form>
+      </section>
+      <section id="message-container">
       </section>
     </main>
+
+
+
+
+
+
   </body>
 </html>
