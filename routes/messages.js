@@ -70,7 +70,7 @@ module.exports = function(db) {
       user: users[req.session["user_id"]],
       userID,
     };
-    res.render("/messages_new", templateVars);
+    res.render("/messages_sent", templateVars);
   });
   return router;
 };
