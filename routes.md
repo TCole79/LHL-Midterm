@@ -8,6 +8,8 @@ Read – USER can see specific listing information
 	= GET / listings / :id
 Edit – ADMIN can edit data for specific listing (includes mark as SOLD!)
 	= POST / listings / :id
+Add – ADMIN can add a listing
+    = POST / listings
 Delete – ADMIN can delete specific listing
 	= POST / listings / :id / delete
 
