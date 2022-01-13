@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = function (db) {
+module.exports = function(db) {
   router.get("/listings", (req, res) => {
     db.getAllListings(req.query, 20)
       .then((listings) => res.render("listings"))

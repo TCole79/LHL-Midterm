@@ -29,7 +29,7 @@ module.exports = function(db) {
       console.log("Error message: ", err.message);
       res.status(500).json({ error: err.message });
     });
-});
+
 
 /////----- BROWSE all messages END-----/////
 
@@ -51,7 +51,7 @@ module.exports = function(db) {
       console.log("Error message: ", err.message);
       res.status(500).json({ error: err.message });
     });
-});
+
 
 /////----- READ Specific Message END -----/////
 
@@ -69,9 +69,6 @@ module.exports = function(db) {
   userID,
   }
   res.render("/messages_new", templateVars);
+  })
 });
-
-/////----- ADD END -----/////
-
-
-/////----- ADD message END -----////
+//---Add messages end---//

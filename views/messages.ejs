@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>The Fun Company - Messages</title>
+
+    <!-- External CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"></link>
+
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+
+    <link rel="stylesheet" href="/styles/photos.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- External CSS For Emojis -->
+    <script src="https://kit.fontawesome.com/e679ba36cc.js" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+    <!-- Page-specific content here all needs to be changed -->
+    
+    <main>
+      <section>
+
+        <form method="GET" action="/messages/<%= message %>"><button type="submit">Edit</button></form>
+        <form method="GET" action="/messages/<%= message.id %>"><button type="submit">Edit</button></form>
+        <form method="POST" action="/messages/<%= message %>"><button type="submit">Message Seller</button></form>
+        <form method="POST" action="/messages/<%= message.id %>/delete"><button type="submit" class="btn btn-danger">Unfavourite</button></form>
+
+      </section>
+    </main>
+  </body>
+</html>
