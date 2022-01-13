@@ -1,12 +1,8 @@
 const express = require('express');
 const router  = express.Router();
 
-<<<<<<< HEAD
-module.exports = function(router, db) {
-=======
 
 module.exports = function(db) {
->>>>>>> messages
   router.get("/listings", (req, res) => {
     db
       .getAllListings(req.query, 20)
