@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS listings CASCADE;
+DROP TABLE IF EXISTS messages CASCADE;
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY NOT NULL,
   receiver_id INTEGER REFERENCES users(id) NOT NULL,
-  sender_id REFERENCES users(id) NOT NULL,
+  sender_id INTEGER REFERENCES users(id) NOT NULL,
   message TEXT NOT NULL,
-  date TIMESTAMP NOT NULL
+  date VARCHAR(255) NOT NULL
 );
