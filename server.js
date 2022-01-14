@@ -78,14 +78,6 @@ app.get("/messages", (req, res) => {
     });
 });
 
-// app.get("/messages", (req, res) => {
-//   res.render("messages");
-// });
-
-// app.post("/messages", (req, res) => {
-//   res.render("messages");
-// });
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
