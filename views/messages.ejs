@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>The Fun Company - Messages</title>
+
+    <!-- External CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"></link>
+
+
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href= "/styles/messages.css" type="text/css" />
+
+    <link rel="stylesheet" href="/styles/photos.css" type="text/css" />
+
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <!-- External CSS For Emojis -->
+    <script src="https://kit.fontawesome.com/e679ba36cc.js" crossorigin="anonymous"></script>
+
+  </head>
+
+  <body>
+    <!-- Page-specific content here all needs to be changed -->
+    <nav class="navbar-top">
+      <a href="/"><span class="buttons-home"><i class="fas fa-home"></i></span></a>
+      <span class="navbar-top-brand"> <h1 style="padding-left: 280px;">                  THE FUN COMPANY</h1></span>
+      <form style= "padding-left: 130px;">
+
+      </form>
+      <div class="navbar-top-menu">
+      </div>
+    </nav>
+
+
+    <main class="container">
+      <h2 id= "h2t">Messages</h2>
+      <section class="new-message">
+        <form method="POST" id="newmessageForm" action="/messages/">
+          <label for="message-text"></label>
+          <textarea name="text" id="message-text" placeholder="Is this item still available?"></textarea>
+          <div class="form-footer">
+            <button type="submit"> send message</button>
+          </div>
+        </form>
+      </section>
+      <section id="message-container">
+        <h4>Previous messages sent to Sellers</h4>
+      </section>
+      <% for(message of messages) { %>
+        <div> <!-- add styles, add image tag, add class if needed - DO NOT use ids in this loop  -->
+          <h3>
+            <%= message.message %>
+          </h3>
+          <h3>sent to:<%= message.receiver_email %></h3>
+        </div>
+        <% } %>
+    </main>
+  </body>
+</html>

@@ -37,17 +37,19 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const listingsRoutes = require("./routes/listings");
+//const messagesRoutes = require("./routes/messages");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/listings", listingsRoutes(db));
-const widgetsRoutes = require("./routes/widgets");
-const { json } = require("express/lib/response");
+//app.use("/api/messages", messagesRoutes(db));
+
+//const widgetsRoutes = require("./routes/widgets");
 // const listingRoutes = require("./routes/listings");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/widgets", widgetsRoutes(db));
+
 // app.use("api/listings", listingsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
@@ -67,6 +69,19 @@ app.get("/listings", (req, res) => {
       //const parsed = JSON.parse(listings);
       //JSON.parse(listings);
       res.render("listings", {listings});
+    })
+    .catch((err) => {
+      console.log("Error message: ", err.message);
+      res.status(500).json({ error: err.message });
+    });
+});
+
+app.get("/messages", (req, res) => {
+  // fetch all messages // parse them as json // pass them to the template as templateVars
+  db.query("SELECT * FROM messages")
+    .then((data) => {
+      const messages = data.rows;
+      res.render("messages", {messages});
     })
     .catch((err) => {
       console.log("Error message: ", err.message);
