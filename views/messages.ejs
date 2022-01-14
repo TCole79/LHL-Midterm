@@ -55,11 +55,11 @@
         <h4>Previous messages sent to Sellers</h4>
       </section>
       <% for(message of messages) { %>
-        <div> <!-- add styles, add image tag, add class if needed - DO NOT use ids in this loop  -->
-          <h3>
+        <div id = "old-message"> <!-- add styles, add image tag, add class if needed - DO NOT use ids in this loop  -->
+          <h5>
             <%= message.message %>
-          </h3>
-          <h3>sent to:<%= message.receiver_email %></h3>
+          </h5>
+          <h5>sent to:<%= message.receiver_email %></h5>
         </div>
         <% } %>
     </main>
