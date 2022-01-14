@@ -54,6 +54,13 @@
       <section id="message-container">
         <h4>Previous messages sent to Sellers</h4>
       </section>
+      <% for(message of messages) { %>
+        <div> <!-- add styles, add image tag, add class if needed - DO NOT use ids in this loop  -->
+          <h3>
+            <%= message.message %>
+          </h3>
+        </div>
+        <% } %>
     </main>
   </body>
 </html>

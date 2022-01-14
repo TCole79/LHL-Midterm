@@ -11,67 +11,71 @@ Add – USER can send a message
     = POST / messages
 
 */
-module.exports = function(db) {
+//module.exports = function(db) {
 
-/////----- BROWSE all messages -----/////
-  router.get("/messages", (req, res) => {
-    const userID = req.session["user_id"];
-    if (!userID) {
-      res.redirect("/login");
-    }
-    db.query("SELECT * FROM messages WHERE id=$1", [req.params.id])
-      .then((data) => {
-        console.log("message: ", data.rows);
-        const message = data.rows[0];
-        res.json(message);
-      })
-      .catch((err) => {
-        console.log("Error message: ", err.message);
-        res.status(500).json({ error: err.message });
-      });
-  });
+  // router.get("/messages", (req, res) => {
+  //   // fetch all messages // parse them as json // pass them to the template as templateVars
+  //   db.query("SELECT * FROM messages")
+  //     .then((data) => {
+  //       const messages = data.rows;
+  //       console.log(data.rows);
+  //       res.render("messages", {messages});
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error message: ", err.message);
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
+  //return router;
+//};
+//   router.get("/", (req, res) => {
+//     db.query("SELECT * FROM messages")
+//       .then((data) => {
+//         const messages = data.rows;
+//         res.json(messages);
+//       })
+//       .catch((err) => {
+//         res.status(500).json({ error: err.message });
+//       });
+//   });
+
+//   router.post("/", (req, res) => {
+//     const userId = req.session.users(id);
+//     db.addMessage({ ...req.body, user_id: userId })
+//       .then((messages) => {
+//         res.send(messages);
+//       })
+//       .catch((err) => {
+//         console.log("Error message: ", err.message);
+//         res.send(err);
+//       });
+//   });
+
+//   router.get("/:id", (req, res) => {
+//     db.query("SELECT * FROM messages WHERE user(id) = user_id AND message(id) = message_id")
+//       .then((data) => {
+//         const messages = data.rows;
+//         res.json(messages);
+//       })
+//       .catch((err) => {
+//         res.status(500).json({ error: err.message });
+//       });
+//   });
+
+//   router.post("/:id", (req, res) => {
+//     const userId = req.session.userId;
+//     db.addMessage({ ...req.body, user_id: userId })
+//       .then((messages) => {
+//         res.send(messages);
+//       })
+//       .catch((err) => {
+//         console.log("Error message: ", err.message);
+//         res.send(err);
+//       });
+//   });
+
+//   return router;
+// };
 
 
-/////----- BROWSE all messages END-----/////
 
-
-
-/////----- READ specific message -----/////
-  router.get("/messages/:id", (req, res) => {
-    const userID = req.session["user_id"];
-    if (!userID) {
-      res.redirect("/login");
-    }
-    db.query("SELECT * FROM messages WHERE message_id REFERENCES message(id)=$1", [req.params.id])
-      .then((data) => {
-        console.log("message: ", data.rows);
-        const message = data.rows[0];
-        res.json(message);
-      })
-      .catch((err) => {
-        console.log("Error message: ", err.message);
-        res.status(500).json({ error: err.message });
-      });
-  });
-
-
-/////----- READ Specific Message END -----/////
-
-
-
-/////----- ADD Message START -----/////
-  router.post("/messages", (req, res) => {
-    const userID = req.session["user_id"];
-    if (!userID) {
-      res.redirect("/login");
-    }
-
-    const templateVars = {
-      user: users[req.session["user_id"]],
-      userID,
-    };
-    res.render("/messages_sent", templateVars);
-  });
-  return router;
-};
-//---Add messages end---//
