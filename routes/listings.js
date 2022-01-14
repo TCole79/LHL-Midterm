@@ -122,8 +122,6 @@ module.exports = function (db) {
 
   return router;
 };
-<<<<<<< HEAD
-=======
 
 // PSEDUO code - what do we need:
 // get request for Browse/view all listings without being signed in
@@ -221,4 +219,3 @@ module.exports = function (db) {
 //   res.redirect("/");
 // });
 // ////---- DELETE LISTINGS END ----////
->>>>>>> messagesEJS
