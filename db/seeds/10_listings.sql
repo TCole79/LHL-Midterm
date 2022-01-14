@@ -41,7 +41,11 @@ status,
 cost,
 thumbnail_url,
 photo_url)
-VALUES (3, 'Summer Fun', 'Paddle Board available.. etc etc etc', 'true', 800, null, null);
+VALUES (3, 'Grenade Ice Mold', 'Get ready for a dangerously cool happy hour.
+
+These grenade-shaped ice cubes will fit comfortably in most glasses. And they’re bigger than regular ice cubes so they’ll take longer to melt.
+
+The ice mold is both flexible and durable. Made of high-quality silicone.', 'true', 15.00, null, null);
 
 
 

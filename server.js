@@ -89,6 +89,11 @@ app.get("/messages", (req, res) => {
     });
 });
 
+app.post("/messages", (req, res) => {
+  const messages = data.rows;
+  res.render("messages", {messages});
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });

@@ -33,11 +33,13 @@
       <a href="/"><span class="buttons-home"><i class="fas fa-home"></i></span></a>
       <span class="navbar-top-brand"> <h1 style="padding-left: 280px;">                  THE FUN COMPANY</h1></span>
       <form style= "padding-left: 130px;">
-
+      <input type="text" placeholder="Search (For example: Tank)">
+      <span class="buttons-search"><i class="fas fa-search"></i></span>
       </form>
       <div class="navbar-top-menu">
       </div>
     </nav>
+
 
 
     <main class="container">
@@ -59,7 +61,8 @@
           <h5>
             <%= message.message %>
           </h5>
-          <h5>sent to:<%= message.receiver_email %></h5>
+          <h5>sent to:<%= message.receiver_email %>
+          </h5>
         </div>
         <% } %>
     </main>
