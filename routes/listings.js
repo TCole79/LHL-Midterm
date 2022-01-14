@@ -17,6 +17,11 @@ Delete – ADMIN can delete specific listing
 
 /////----- BROWSE ALL START -----/////
 module.exports = function (db) {
+<<<<<<< HEAD
+  router.get("/", (req, res) => {
+    //const userID = req.session.user_id;
+=======
+>>>>>>> 12b22cf77f88cdc6cce8608dc74b86f595e38373
 
   router.get("/", (req, res) => {
     db.query("SELECT * FROM listings")
@@ -29,7 +34,6 @@ module.exports = function (db) {
       });
   });
   /////----- BROWSE ALL END -----/////
-
 
   ////---- READ SPECIFIC LISTING START ----////
   router.get("/:id", (req, res) => {
