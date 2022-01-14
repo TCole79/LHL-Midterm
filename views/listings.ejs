@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>The Fun Company - Home Page</title>
+    <title>The Fun Company - Listings Curated for the Discerning Buyer, Like You.</title>
 
     <!-- External CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/header.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/listings.css" type="text/css" />
 
     <link rel="stylesheet" href="/styles/photos.css" type="text/css" />
 
@@ -27,9 +28,9 @@
 
   <body>
     <!-- Top nav bar -->
-      <nav class="navbar-top">
+    <nav class="navbar-top">
       <a href="/"><span class="buttons-home"><i class="fas fa-home"></i></span></a>
-      <span class="navbar-top-brand"> <h1 style="padding-left: 280px;">                  THE FUN COMPANY</h1></span>
+      <span class="navbar-top-brand"> <h1 style="padding-left: 280px;">Listings Curated for the Discerning Buyer, Like You.</h1></span>
       <form style= "padding-left: 130px;">
       <input type="text" placeholder="Search (For example: Tank)">
       <span class="buttons-search"><i class="fas fa-search"></i></span>
@@ -38,7 +39,22 @@
       </div>
     </nav>
     <!-- End of nav bar -->
-      <div>
-        <table>
-  <tr>
-  </tr>
+
+
+
+<% for(list of listings) { %>
+<!-- add styles, add image tag, add class if needed - DO NOT use ids in this loop  -->
+<div class="listing-container">
+  <h3>
+  <%= list.title %>
+</h3>
+<h4>
+  <%= list.cost %>
+</h4>
+<p>
+  <%= list.description %>
+</p>
+</div>
+
+<% } %>
+

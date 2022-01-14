@@ -4,3 +4,11 @@ body,
 html {
   margin: 0;
 }
+
+/* Rule for laptops/desktops that also have minimum 1024 screen resolution */
+@media screen and (min-width: 1024px) {
+  body {
+    flex-direction: row;
+    display: flex;
+  }
+}

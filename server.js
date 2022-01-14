@@ -43,6 +43,7 @@ const listingsRoutes = require("./routes/listings");
 app.use("/api/users", usersRoutes(db));
 app.use("/api/listings", listingsRoutes(db));
 const widgetsRoutes = require("./routes/widgets");
+const { json } = require("express/lib/response");
 // const listingRoutes = require("./routes/listings");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -59,7 +60,18 @@ app.get("/", (req, res) => {
 });
 
 app.get("/listings", (req, res) => {
-  res.render("listings");
+  // fetch all listings // parse them as json // pass them to the template as templateVars
+  db.query("SELECT * FROM listings")
+    .then((data) => {
+      const listings = data.rows;
+      //const parsed = JSON.parse(listings);
+      //JSON.parse(listings);
+      res.render("listings", {listings});
+    })
+    .catch((err) => {
+      console.log("Error message: ", err.message);
+      res.status(500).json({ error: err.message });
+    });
 });
 
 app.listen(PORT, () => {
