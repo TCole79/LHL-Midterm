@@ -42,19 +42,29 @@
 
 
 
-<% for(list of listings) { %>
+    <section class="listing-containers">
+      <% for(list of listings) { %>
 <!-- add styles, add image tag, add class if needed - DO NOT use ids in this loop  -->
-<div class="listing-container">
-  <h3>
-  <%= list.title %>
-</h3>
-<h4>
-  <%= list.cost %>
-</h4>
-<p>
-  <%= list.description %>
-</p>
-</div>
-
-<% } %>
-
+        <article class="listing">
+          <h3><%= list.title %></h3>
+          <img src="<%= list.photo_url %>">
+            <div class="listing-detail">
+              <li> <%= list.description %> </li>
+              <li> Price: $ <%= list.cost %> </li>
+              <% if (list.sold) { %>
+                <li>SOLD!</li>
+              <% } else { %>
+                <li>AVAILABLE</li>
+              <% } %>
+            </div>
+            <div class="listing-actions">
+              <!-- how to check if user is Admin? should go here-->
+              <form method="GET" action="/listings/<%= listings.id %>"><button type="submit">Edit Listing</button></form>
+              <form method="POST" action="/favourites/<%= listings.id %>"><button type="submit">Favourite Listing</button></form>
+              <form method="GET" action="/messages/<%= listings.user_id %>"><button type="submit">Message Seller</button></form>
+            </div>
+        </article>
+      <% } %>
+    </section>
+  </body>
+</html>

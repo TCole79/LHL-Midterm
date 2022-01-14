@@ -6,9 +6,13 @@ html {
 }
 
 /* Rule for laptops/desktops that also have minimum 1024 screen resolution */
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 375px) {
   body {
-    flex-direction: row;
+    flex-direction: column;
     display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: flex-start;
+    justify-content: center;
   }
-}
+} ;
